@@ -1,0 +1,60 @@
+<div class=" d-flex">
+
+  <div  class="d-flex flex-column">
+    <!-- <div tabindex="100" class="flex-wrap d-flex" class=" bg-warning" style="min-width: 150px; min-height: 40px;"  *ngIf="show_country_selected_list">
+      <div *ngFor="let item of selected_countries; index as i"><span>{{item.country_name}}</span><span *ngIf="(selected_countries.length > 1) && (i - selected_countries.length) > 1" class="mr-1">,</span></div>
+    </div> -->
+    <mat-form-field class="example-full-width">
+      <!-- <mat-label>Favorite food</mat-label> -->
+      <input matInput placeholder="Search">
+    </mat-form-field>
+
+    <mat-form-field id="countrySelect" appearance="fill">
+      <mat-label>Country</mat-label>
+      <mat-select   multiple disableOptionCentering>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="countryMultiFilterCtrl"></ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let item of filtered_country_list" [value]="item.id">{{item.country_name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+
+  <!-- <mat-form-field class="example-chip-list">
+    <mat-label>Favorite Fruits</mat-label>
+    <mat-chip-list #chipList aria-label="Fruit selection">
+      <mat-chip
+        *ngFor="let fruit of fruits"
+        [selectable]="selectable"
+        [removable]="removable"
+        (removed)="remove(fruit)">
+        {{fruit}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input
+        placeholder="New fruit..."
+        #fruitInput
+        [formControl]="fruitCtrl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+        {{fruit}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field> -->
+</div>
+
+
+
+
+
+<!-- search result -->
+<div>
+
+</div>
