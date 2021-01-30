@@ -18,8 +18,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatSelectModule} from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-
-
+import {MatButtonModule} from '@angular/material/button';
+import {MatTableModule} from '@angular/material/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +37,9 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     MatChipsModule,
     MatInputModule,
     MatSelectModule,
+    MatButtonModule,
     NgxMatSelectSearchModule,
+    MatTableModule,
     RouterModule.forRoot([
     { path: '', component: HomeComponent, pathMatch: 'full' },
 

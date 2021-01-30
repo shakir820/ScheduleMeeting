@@ -23,3 +23,8 @@ container>*{
   top: 30vh;
   left: 30vw;
 }
+
+
+table {
+  width: 100%;
+}

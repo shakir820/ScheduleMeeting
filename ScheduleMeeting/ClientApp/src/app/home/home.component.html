@@ -1,53 +1,25 @@
 <div class=" d-flex">
 
-  <div  class="d-flex flex-column">
-    <!-- <div tabindex="100" class="flex-wrap d-flex" class=" bg-warning" style="min-width: 150px; min-height: 40px;"  *ngIf="show_country_selected_list">
-      <div *ngFor="let item of selected_countries; index as i"><span>{{item.country_name}}</span><span *ngIf="(selected_countries.length > 1) && (i - selected_countries.length) > 1" class="mr-1">,</span></div>
-    </div> -->
-    <mat-form-field class="example-full-width">
-      <!-- <mat-label>Favorite food</mat-label> -->
-      <input matInput placeholder="Search">
-    </mat-form-field>
-
-    <mat-form-field id="countrySelect" appearance="fill">
-      <mat-label>Country</mat-label>
-      <mat-select   multiple disableOptionCentering>
-        <mat-option>
-          <ngx-mat-select-search [formControl]="countryMultiFilterCtrl"></ngx-mat-select-search>
-        </mat-option>
-        <mat-option *ngFor="let item of filtered_country_list" [value]="item.id">{{item.country_name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-  </div>
-
-
-  <!-- <mat-form-field class="example-chip-list">
-    <mat-label>Favorite Fruits</mat-label>
-    <mat-chip-list #chipList aria-label="Fruit selection">
-      <mat-chip
-        *ngFor="let fruit of fruits"
-        [selectable]="selectable"
-        [removable]="removable"
-        (removed)="remove(fruit)">
-        {{fruit}}
-        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-      </mat-chip>
-      <input
-        placeholder="New fruit..."
-        #fruitInput
-        [formControl]="fruitCtrl"
-        [matAutocomplete]="auto"
-        [matChipInputFor]="chipList"
-        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        (matChipInputTokenEnd)="add($event)">
-    </mat-chip-list>
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-      <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
-        {{fruit}}
+  <mat-form-field id="countrySelect" appearance="fill">
+    <mat-label>Country</mat-label>
+    <mat-select #countrySelect="matSelect"  (selectionChange)="countrySelectionChanged($event)" multiple disableOptionCentering>
+      <mat-option>
+        <ngx-mat-select-search placeholderLabel="Search" [formControl]="countryMultiFilterCtrl"></ngx-mat-select-search>
       </mat-option>
-    </mat-autocomplete>
-  </mat-form-field> -->
+      <mat-option *ngFor="let item of filtered_country_list" [value]="item">{{item.country_name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="ml-4" id="companySelect" appearance="fill">
+    <mat-label>Company</mat-label>
+    <mat-select #companySelect="matSelect"  (selectionChange)="companySelectionChanged($event)" multiple disableOptionCentering>
+      <mat-option>
+        <ngx-mat-select-search placeholderLabel="Search" [formControl]="companyMultiFilterCtrl"></ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let item of filtered_company_list" [value]="item">{{item.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
 </div>
 
 
@@ -56,5 +28,43 @@
 
 <!-- search result -->
 <div>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
 
+      <!-- Position Column -->
+      <ng-container matColumnDef="company">
+        <th mat-header-cell *matHeaderCellDef> Company </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="country">
+        <th mat-header-cell *matHeaderCellDef> Country </th>
+        <td mat-cell *matCellDef="let element"> {{element.country.country_name}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="city">
+        <th mat-header-cell *matHeaderCellDef> City </th>
+        <td mat-cell *matCellDef="let element"> {{element.city.city_name}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="delegate">
+        <th mat-header-cell *matHeaderCellDef> Delegate Name </th>
+        <td mat-cell *matCellDef="let element">
+          <div class=" d-flex flex-column">
+            <button mat-button class="d-flex flex-fill" *ngFor="let user_item of element.users">
+              <div>{{user_item.name}}</div>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
 </div>
